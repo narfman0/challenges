@@ -44,6 +44,19 @@ def is_ugly(number):
 
 
 zero_replacer = re.compile(r'\b0+(?!\b)')
+def create_potential(used, manual=False):
+    """ Generate and evaluate possibly ugle expression
+    Arguments
+        manual: If we should parse manually or use a regex
+    """
+    if manual:
+        # eval appears to interpret leading 0s as octal, workaround is lstrip
+        parts = [p.lstrip('0') for p in used.split('*')]
+        parts = ['0' if not p else p for p in parts]
+        return eval(''.join(parts))
+    return eval(re.sub(zero_replacer, '', used))
+
+
 def function(unused, used=''):
     uglies = 0
     if unused:
@@ -53,15 +66,7 @@ def function(unused, used=''):
         else:
             uglies += function(unused[1:], unused[0])
     else:
-        # this commented out method is faster, but can error if substring only
-        # has 0. Using slower regex for now.
-        #if used == '0':
-        #    return 1
-        # eval appears to interpret leading 0s as octal, workaround is lstrip
-        #parts = [p.lstrip('0') for p in used.split('*')]
-        #potential = eval(''.join(parts))
-        potential = eval(re.sub(zero_replacer, '', used))
-        if is_ugly(potential):
+        if is_ugly(create_potential(used)):
             return 1
     return uglies
 
