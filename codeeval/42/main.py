@@ -73,7 +73,8 @@ def function(unused, used=''):
 
 if __name__ == '__main__':
     exit_code = 0
-    with open(sys.argv[1]) as f:
+    input_path = 'input.txt' if len(sys.argv) < 1 else sys.argv[1]
+    with open(input_path) as f:
         for line in f.read().splitlines():
             try:
                 print(function(line))
