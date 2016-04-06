@@ -5,7 +5,6 @@ Description:
 You are given an n*n matrix of integers. You can move only right and down.
 Calculate the minimal path sum from the top left to the bottom right
 """
-import itertools
 import sys
 
 
@@ -19,28 +18,43 @@ def parse_matrix(lines):
     return matrix, n
 
 
+def initial_state(matrix, minimal, n):
+    """ Copy bottom row and right column to minimal """
+    minimal[n-1][n-1] = matrix[n-1][n-1]
+    # copy right column
+    for v in range(n-2, -1, -1):
+        minimal[v][n-1] = matrix[v][n-1] + minimal[v+1][n-1]
+    # copy bottom row
+    for i in range(n-2, -1, -1):
+        minimal[n-1][i] = matrix[n-1][i] + minimal[n-1][i+1]
+
+
+def iteration(matrix, minimal, n, i):
+    """ Calculate minimal n*n matrix for current iteration i """
+    # we are working our way bottom up, so "reverse" i
+    d = n-i
+    # get diagonal value
+    minimal[d][d] = matrix[d][d] + min(minimal[d][d+1], minimal[d+1][d])
+    # get vertical values
+    for v in range(d, -1, -1):
+        minimal[d-v][d] = matrix[d-v][d] + min(minimal[d-v][d+1], minimal[d-v+1][d])
+    # get horizontal values
+    for h in range(d, -1, -1):
+        minimal[d][d-h] = matrix[d][d-h] + min(minimal[d+1][d-h], minimal[d][d-h+1])
+
+
 def function(lines):
     """ Probably the best way to approach this: generate the last value. From
     that, we may generate the nth row and nth column since it could then only
     be reached going right or down. This will be simple adding, and we could
     follow this pattern up the diagonal only and calculate the rest quite fast.
     """
-    #
     matrix, n = parse_matrix(lines)
-    minimal = [[0]*n for _ in range(n)]
+    minimal = [[0]*n for _ in range(n)] # empty matrix
     minimal[n-1][n-1] = matrix[n-1][n-1]
-    for d in range(n, 0, -1):
-        # get diagonal value
-        minimal[d-1][d-1] = matrix[d-1][d-1]
-        import pdb; pdb.set_trace()
-        # get vertical values
-        for v in range(d, 1, -1):
-            value = matrix[d-v-1][d-1] + min(matrix[d-v-1][d-2], matrix[d-v-2][d-1])
-            minimal[d-v-1][d-1] = value
-        # get horizontal values
-        for h in range(d, 1, -1):
-            value = matrix[d-1][d-h-1] + min(matrix[d-2][d-h-1], matrix[d-1][d-h-2])
-            minimal[d-1][d-v-1] = value
+    initial_state(matrix, minimal, n)
+    for i in range(n):
+        iteration(matrix, minimal, n, i)
     return minimal[0][0]
 
 
