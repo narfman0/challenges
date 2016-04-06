@@ -63,9 +63,15 @@ if __name__ == '__main__':
     input_path = 'input.txt' if len(sys.argv) < 1 else sys.argv[1]
     with open(input_path) as f:
         lines = f.read().splitlines()
-        while lines:
-            count = int(lines[0])
-            points = lines[1:count+1]
-            lines = lines[count+1:]
-            print(str(function(points)))
+        try:
+            while lines:
+                count = int(lines[0])
+                points = lines[1:count+1]
+                lines = lines[count+1:]
+                print(str(function(points)))
+        except:
+            # one of these days im going to scrape the answers and just print
+            # the list linearly, sigh
+            print('Error for program, lines:\n' + str(lines))
+            exit_code = 1
     sys.exit(exit_code)
