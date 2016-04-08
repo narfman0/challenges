@@ -45,7 +45,7 @@ def is_ugly(number):
 
 zero_replacer = re.compile(r'\b0+(?!\b)')
 def create_potential(used, manual=False):
-    """ Generate and evaluate possibly ugle expression
+    """ Generate and evaluate possibly ugly expression
     Arguments
         manual: If we should parse manually or use a regex
     """
@@ -75,9 +75,9 @@ if __name__ == '__main__':
     exit_code = 0
     input_path = 'input.txt' if len(sys.argv) < 1 else sys.argv[1]
     with open(input_path) as f:
-        for line in f.read().splitlines():
+        for line in f:
             try:
-                print(function(line))
+                print(function(line[:-1]))
             except:
                 exit_code = 1
                 print('Failed to evaluate line: ' + line)
