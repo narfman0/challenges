@@ -35,10 +35,10 @@ def iteration(matrix, minimal, n, i):
     # get diagonal value
     minimal[d][d] = matrix[d][d] + min(minimal[d][d+1], minimal[d+1][d])
     # get vertical values
-    for v in range(d, -1, -1):
+    for v in range(1, d+1):
         minimal[d-v][d] = matrix[d-v][d] + min(minimal[d-v][d+1], minimal[d-v+1][d])
     # get horizontal values
-    for h in range(d, -1, -1):
+    for h in range(1, d+1):
         minimal[d][d-h] = matrix[d][d-h] + min(minimal[d+1][d-h], minimal[d][d-h+1])
 
 
@@ -51,7 +51,6 @@ def function(lines, n):
     matrix = parse_matrix(lines, n)
     minimal = [[0]*n for _ in range(n)] # empty matrix
     initial_state(matrix, minimal, n)
-    import pdb; pdb.set_trace()
     for i in range(2, n+1):
         iteration(matrix, minimal, n, i)
     return minimal[0][0]
