@@ -42,4 +42,4 @@ def beauty(source):
 if __name__ == '__main__':
     with open(sys.argv[1]) as f:
         for line in f.readlines():
-            print str(beauty(line))
+            print(str(beauty(line)))

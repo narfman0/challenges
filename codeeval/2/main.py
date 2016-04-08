@@ -33,4 +33,4 @@ def longest_lines(f):
 if __name__ == '__main__':
     with open(sys.argv[1]) as f:
         for result in longest_lines(f):
-            print result
+            print(result)

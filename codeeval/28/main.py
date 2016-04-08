@@ -25,8 +25,8 @@ if __name__ == '__main__':
     with open(sys.argv[1]) as f:
         for line in f.readlines():
             try:
-                print string_searching(line)
+                print(string_searching(line))
             except:
                 exit_code = 1
-                print 'Failed to evaluate line: ' + line
+                print('Failed to evaluate line: ' + line)
     sys.exit(exit_code)

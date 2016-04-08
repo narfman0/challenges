@@ -59,7 +59,7 @@ if __name__ == '__main__':
     with open(sys.argv[1]) as f:
         for expression in f.readlines():
             try:
-                print prefix(expression)
+                print(prefix(expression))
             except:
                 exit_code = 1
                 print 'Failed to evaluate expression: ' + expression
