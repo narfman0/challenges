@@ -1,5 +1,7 @@
 def merge_list(left, right):
-    """ Merge two lists in order """
+    """ Merge two lists in order. Assumes `cmp` works on all items
+    for comparison.
+    """
     li = 0
     ri = 0
     result = []
@@ -15,6 +17,16 @@ def merge_list(left, right):
     if ri < len(right):
         result.extend(right[ri:])
     return result
+
+
+def merge_sort_recursive(array):
+    """ Merge sort recursively """
+    if len(array) < 2:
+        return array
+    center = len(array) / 2
+    left = merge_sort_recursive(array[:center])
+    right = merge_sort_recursive(array[center:])
+    return merge_list(left, right)
 
 
 def merge_sort(array):
@@ -33,9 +45,8 @@ def merge_sort(array):
             for k in range(len(result)):
                 array[i*j + k] = result[k]
         i *= 2
-    # this addresses a failure in design; only divisible by 2 is the real merge
-    # sort algo occurring. here we do a final run on everything and assume its
-    # sorted, which is wrong
+    # this addresses a failure in design; the right side may not be in order
+    # here we do a final run on everything and assume its sorted, which is wrong
     if i > len(array):
         left = array[:i/2]
         right = array[i/2:]
