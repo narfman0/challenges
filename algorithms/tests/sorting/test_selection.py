@@ -4,7 +4,7 @@ from sorting.selection import selection_sort, selection_sort_generator
 
 
 class TestSortingSelection(TestCase):
-    def test_simple(self):
+    def test_selection(self):
         array = [1, 7, 5, 4, 6]
         result = selection_sort(array)
         self.assertEquals(1, result[0])
@@ -13,7 +13,7 @@ class TestSortingSelection(TestCase):
         self.assertEquals(6, result[3])
         self.assertEquals(7, result[4])
 
-    def test_generator(self):
+    def test_selection_generator(self):
         array = [1, 7, 5, 4, 6]
         result = list(selection_sort_generator(array))
         self.assertEquals(1, result[0])
