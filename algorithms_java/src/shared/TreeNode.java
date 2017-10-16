@@ -1,10 +1,10 @@
 package shared;
 
-public class Node {
+public class TreeNode {
 	public String name;
-	public Node left, right;
+	public TreeNode left, right;
 
-	public Node(String name){
+	public TreeNode(String name){
 		this.name = name;
 	}
 	
