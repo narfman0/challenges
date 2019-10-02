@@ -1,4 +1,6 @@
-class QuickSort {
+package algs.sort;
+
+class Quicksort {
     /* This function takes last element as pivot,
        places the pivot element at its correct
        position in sorted array, and places all

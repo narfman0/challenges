@@ -1,3 +1,5 @@
+package algs.shared;
+
 public class Point{
     public int x, y;
 

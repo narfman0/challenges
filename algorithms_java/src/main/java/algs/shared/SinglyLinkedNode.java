@@ -1,4 +1,4 @@
-package shared;
+package algs.shared;
 
 public class SinglyLinkedNode {
 	public int val;
