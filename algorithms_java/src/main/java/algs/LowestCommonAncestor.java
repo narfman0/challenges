@@ -35,7 +35,8 @@ public class LowestCommonAncestor {
             path.add(current);
             return true;
         }
-        if(createPath(current.left, target, path) || createPath(current.right, target, path)){
+        if((target.val < current.val && createPath(current.left, target, path)) ||
+                (target.val >  current.val && createPath(current.right, target, path))){
             path.add(current);
             return true;
         }
