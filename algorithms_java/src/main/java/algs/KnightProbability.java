@@ -3,26 +3,8 @@ package algs;
 import java.util.HashMap;
 
 public class KnightProbability {
-
-    private static class Move {
-        public int r, c;
-
-        public Move(int r, int c){
-            this.r = r;
-            this.c = c;
-        }
-    }
-
-    private static Move[] moves = new Move[]{
-            new Move(2, 1),
-            new Move(1, 2),
-            new Move(-1, 2),
-            new Move(-2, 1),
-            new Move(-2, -1),
-            new Move(-1, -2),
-            new Move(1, -2),
-            new Move(2, -1)
-    };
+    private static int[] mr = {2, 1, -1, -2, -2, -1, 1, 2},
+            mc = {1, 2, 2, 1, -1, -2, -2, -1};
 
     public static double knightProbability(int N, int K, int r, int c) {
         return knightProbability(N, K, r, c, 1.0, new HashMap<>());
@@ -40,8 +22,8 @@ public class KnightProbability {
 
         currentP = 0.0;
         double childP = p/8.0;
-        for(Move move: moves)
-            currentP += knightProbability(N, K-1, r+move.r, c+move.c, childP, m);
+        for(int i=0; i<mr.length; i++)
+            currentP += knightProbability(N, K-1, r+mr[i], c+mc[i], childP, m);
         m.put(K + "," + r + "," + c, currentP);
         return currentP;
     }
