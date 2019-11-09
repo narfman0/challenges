@@ -11,4 +11,9 @@ public class TestKnightProbability {
     public void testKnightProbability3_2_0_0() {
         assertEquals(knightProbability(3, 2, 0, 0), 0.06250);
     }
+
+    @Test
+    public void testKnightProbability8_30_6_4() {
+        assertEquals(knightProbability(8, 30, 6, 4), 0.0001905256629833365);
+    }
 }

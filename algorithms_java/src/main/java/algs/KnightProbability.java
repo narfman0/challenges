@@ -1,5 +1,7 @@
 package algs;
 
+import java.util.HashMap;
+
 public class KnightProbability {
 
     private static class Move {
@@ -23,17 +25,24 @@ public class KnightProbability {
     };
 
     public static double knightProbability(int N, int K, int r, int c) {
-        return knightProbability(N, K, r, c, 1.0);
+        return knightProbability(N, K, r, c, 1.0, new HashMap<>());
     }
 
-    public static double knightProbability(int N, int K, int r, int c, double p) {
+    public static double knightProbability(int N, int K, int r, int c, double p, HashMap<String, Double> m) {
         if(r < 0 || c < 0 || r >= N || c >= N)
             return 0.0;
         if(K == 0)
             return p;
-        double currentP = 0.0, childP = p/8.0;
+
+        Double currentP = m.get(K + "," + r + "," + c);
+        if(currentP != null)
+            return currentP;
+
+        currentP = 0.0;
+        double childP = p/8.0;
         for(Move move: moves)
-            currentP += knightProbability(N, K-1, r+move.r, c+move.c, childP);
+            currentP += knightProbability(N, K-1, r+move.r, c+move.c, childP, m);
+        m.put(K + "," + r + "," + c, currentP);
         return currentP;
     }
 }
