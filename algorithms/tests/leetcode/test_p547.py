@@ -2,20 +2,11 @@ from unittest import TestCase
 
 from algorithms.leetcode import p547
 
-
-class TestSortingMerge(TestCase):
-    def test_1(self):
-        isConnected = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
-        result = p547.Solution().findCircleNum(isConnected)
-        self.assertEqual(2, result)
-
-    def test_2(self):
-        isConnected = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-        result = p547.Solution().findCircleNum(isConnected)
-        self.assertEqual(3, result)
-
-    def test_3(self):
-        isConnected = [
+CASES = [
+    ([[1, 1, 0], [1, 1, 0], [0, 0, 1]], 2),
+    ([[1, 0, 0], [0, 1, 0], [0, 0, 1]], 3),
+    (
+        [
             [1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
             [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -31,6 +22,17 @@ class TestSortingMerge(TestCase):
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
             [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
-        ]
-        result = p547.Solution().findCircleNum(isConnected)
-        self.assertEqual(3, result)
+        ],
+        3,
+    ),
+]
+
+
+class TestP547(TestCase):
+    def test_dfs(self):
+        for testcase, expected in CASES:
+            self.assertEqual(expected, p547.Solution().findCircleNumDfs(testcase))
+
+    def test_union(self):
+        for testcase, expected in CASES:
+            self.assertEqual(expected, p547.Solution().findCircleNumUnion(testcase))
