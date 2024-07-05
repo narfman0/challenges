@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from sorting.selection import selection_sort, selection_sort_generator
+from algorithms.sorting.selection import selection_sort, selection_sort_generator
 
 
 class TestSortingSelection(TestCase):

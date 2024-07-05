@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from sorting.merge import merge_list, merge_sort, merge_sort_recursive
+from algorithms.sorting.merge import merge_list, merge_sort, merge_sort_recursive
 
 
 class TestSortingMerge(TestCase):

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from sorting.quick import quick_sort, quick_sort_randomized
+from algorithms.sorting.quick import quick_sort, quick_sort_randomized
 
 
 class TestSortingQuicksort(TestCase):
