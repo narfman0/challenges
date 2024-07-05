@@ -1,12 +1,10 @@
 def merge_list(left, right):
-    """ Merge two lists in order. Assumes `cmp` works on all items
-    for comparison.
-    """
+    """Merge two lists in order."""
     li = 0
     ri = 0
     result = []
     while li < len(left) and ri < len(right):
-        if cmp(left[li], right[ri]) < 0:
+        if left[li] < right[ri]:
             result.append(left[li])
             li += 1
         else:
@@ -20,35 +18,34 @@ def merge_list(left, right):
 
 
 def merge_sort_recursive(array):
-    """ Merge sort recursively """
+    """Merge sort recursively"""
     if len(array) < 2:
         return array
-    center = len(array) / 2
+    center = len(array) // 2
     left = merge_sort_recursive(array[:center])
     right = merge_sort_recursive(array[center:])
     return merge_list(left, right)
 
 
 def merge_sort(array):
-    """ Sort the given `array` using the merge sort algorithm.
-    Assumes the elements can use the `cmp` function to compare themselves.
+    """Sort the given `array` using the merge sort algorithm.
     Sorts in-place.
     """
     # first we will iterate over groups of 2 elements each, sorting in place,
     # and work up
     i = 2
     while i < len(array):
-        for j in range(len(array) / i):
-            left = array[i*j:i*j + i/2]
-            right = array[i*j + i/2:i*j + i]
+        for j in range(len(array) // i):
+            left = array[i * j : i * j + i // 2]
+            right = array[i * j + i // 2 : i * j + i]
             result = merge_list(left, right)
             for k in range(len(result)):
-                array[i*j + k] = result[k]
+                array[i * j + k] = result[k]
         i *= 2
     # this addresses a failure in design; the right side may not be in order
     # here we do a final run on everything and assume its sorted, which is wrong
     if i > len(array):
-        left = array[:i/2]
-        right = array[i/2:]
+        left = array[: i // 2]
+        right = array[i // 2 :]
         array = merge_list(left, right)
     return array
