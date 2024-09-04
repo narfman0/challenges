@@ -6,9 +6,10 @@ class Solution:
     def largestIsland(self, grid: List[List[int]]) -> int:
         n = len(grid)
 
-        def calculate_area(x: int, y: int, mark_visited: bool) -> tuple[int, deque]:
+        def calculate_area(
+            x: int, y: int, visited: set, mark_visited: bool
+        ) -> tuple[int, deque]:
             result = 0
-            visited = set()
             frontier = deque()
             frontier.append((x, y))
             adjacent_water_coords = deque()
@@ -37,13 +38,16 @@ class Solution:
         for y in range(n):
             for x in range(n):
                 if grid[y][x] == 1:
-                    area, adjacent_water_coords = calculate_area(x, y, True)
+                    visited = set()
+                    area, adjacent_water_coords = calculate_area(x, y, visited, True)
                     if area == n**2:
                         return area
                     for adjacent_water_coord in adjacent_water_coords:
+                        visited.remove(adjacent_water_coord)
+                    for adjacent_water_coord in adjacent_water_coords:
                         ax, ay = adjacent_water_coord
                         grid[ay][ax] = 1
-                        area, _ = calculate_area(ax, ay, False)
-                        max_area = max(max_area, area)
-                        grid[ay][ax] = 0
+                        adjarea, _ = calculate_area(ax, ay, set(visited), False)
+                        max_area = max(max_area, area + adjarea)
+                        grid[ay][ax] = 2
         return max_area
